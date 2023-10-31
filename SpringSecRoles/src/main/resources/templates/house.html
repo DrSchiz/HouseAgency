@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <form th:action="@{/user/{username}(username=${username})}" method="get">
+                    <button class="btn btn-secondary" th:text="${username}"></button>
+                </form>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/houses">Дома</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users">Пользователи</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Выход</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+    <form th:object="${house}" th:action="@{/houses/house}" th:method="post">
+        <label for="adress">Адрес:</label>
+        <input class="form-control" type="text" id="adress" th:field="*{adress}">
+        <label for="desc">Описание:</label>
+        <textarea class="form-control" type="text" id="desc" th:field="*{description}"></textarea>
+        <label for="status">Статус:</label>
+        <select name="status" id="status" class="form-select" aria-label="Default select example">
+            <div th:each="status : ${statuses}" >
+                <option th:value="${status.id}" th:text="${status.name}" ></option>
+            </div>
+        </select>
+        <label for="city1">Город:</label>
+        <select name="city1" id="city1" class="form-select" aria-label="Default select example">
+            <div th:each="city1 : ${cities}" >
+                <option th:value="${city1.id}" th:text="${city1.name}" ></option>
+            </div>
+        </select>
+        <label for="price">Цена:</label>
+        <input class="form-control" type="number" id="price" th:field="*{price}">
+        <label for="agencyVal">Агенство страхования:</label>
+        <select name="agencyVal" id="agencyVal" class="form-select" aria-label="Default select example">
+            <div th:each="agency : ${agencies}">
+                <option th:value="${agency.id}" th:text="${agency.name}" ></option>
+            </div>
+        </select>
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <form th:action="@{/user/{username}(username=${username})}" method="get">
+                    <button class="btn btn-secondary" th:text="${username}"></button>
+                </form>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/houses">Дома</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users">Пользователи</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Выход</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<table class="table table-striped">
+    <h2>Дома</h2>
+    <thead>
+    <tr>
+        <th scope="col">Адрес</th>
+        <th scope="col">Описание</th>
+        <th scope="col">Стоимость</th>
+        <th scope="col">Город</th>
+        <th scope="col">Владелец</th>
+        <th scope="col">Статус</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <div th:each="homes : ${houses}">
+        <tr>
+            <td th:text="${homes.adress}"></td>
+            <td th:text="${homes.description}"></td>
+            <td th:text="${homes.price}"></td>
+            <td th:text="${homes.city.name}"></td>
+            <td th:text="${homes.user.username}"></td>
+            <td th:text="${homes.statusHouse.name}"></td>
+            <td>
+                <form th:action="@{/houses/{id}(id=${homes.id})}" th:method="post">
+                    <button type="submit" class="btn btn-primary">Купить</button>
+                </form>
+            </td>
+        </tr>
+    </div>
+    </tbody>
+</table>
+</body>
+</html>
